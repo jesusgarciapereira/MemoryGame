@@ -1,10 +1,14 @@
 package game;
 
+import java.util.Random;
+
 /**
  * Clase con las funciones del juego
  */
 public class Memory {
 
+	static Random rand = new Random();
+	
 	/**
 	 * Constante con el tamannio del tablero
 	 */
@@ -28,6 +32,10 @@ public class Memory {
 		// Numero que ocupará un lugar en la tabla, inicializado en 1
 		int numParaRellenar = 1;
 		
+		int posX;
+		int posY;
+		int aux;
+		
 		//Rellenamos la tabla solución
 		//Recorremos cada fila de la tabla solucion
 		for (int i = 0; i < solucion.length; i++) {
@@ -46,7 +54,21 @@ public class Memory {
 			}
 		}
 		
-		// NOS FALTA DESORDENARLA
+		// NOS FALTA DESORDENARLA - He aquí
+		for (int i = 0; i < solucion.length; i++) {
+			for (int j = 0; j < solucion.length; j++) {
+				posX = rand.nextInt(1, solucion.length);
+				posY = rand.nextInt(1, solucion.length);
+				
+				aux = solucion[i][j];
+				
+				solucion[i][j] = solucion[posX][posY];
+				
+				solucion[posX][posY] = aux;
+				
+			}
+		}
+		
 
 	}
 
