@@ -11,15 +11,8 @@ public class Main {
 	public static void main(String[] args) {
 		// POR AHORA ESTO ES PARA PROBAR LO QUE ESTAMOS HACIENDO EN LA CLASE MEMORY
 		int[][] solucion = Memory.solucion;
-
-		Memory.generaSolucion();
-
-		for (int[] fila : solucion) {
-			for (int numero : fila) {
-				System.out.print(numero + " ");
-			}
-			System.out.println();
-		}
+		
+		Memory.muestraTableroDeJuego();
 
 		int numEncontrar = 5;
 
