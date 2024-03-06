@@ -13,14 +13,11 @@ public class Main {
 		int[][] tableroDejuego = Memory.getTableroDeJuego();
 
 		// Primera posición seleccionada por el jugador
-		int primeraPosicionSeleccionada;
+		int primeraPosicionSeleccionada = -1;
 		// Segunda posición seleccionada por el jugador
 		int segundaPosicionSeleccionada;
 
-		int izquierdaPrimero;
-		int derechaPrimero;
-		int izquierdaSegundo;
-		int derechaSegundo;
+		boolean parejaIgual;
 
 		// Activamos el Scanner
 		Scanner sc = new Scanner(System.in);
@@ -31,14 +28,15 @@ public class Main {
 
 		while (!Memory.finDeJuego()) {
 			Memory.muestraTableroDeJuego();
-
-			// Le pedimos al usuario la primera posición
-			System.out.println("Elija una posición");
+//
+//			while (primeraPosicionSeleccionada == -1
+//					|| Memory.getTableroDeJuego()[primeraPosicionSeleccionada / 10][primeraPosicionSeleccionada
+//							% 10] != 0) {
+				// Le pedimos al usuario la primera posición
+				System.out.println("Elija una posición");
 			// Y la asignamos
 			primeraPosicionSeleccionada = sc.nextInt();
-			izquierdaPrimero = primeraPosicionSeleccionada / 10;
-			derechaPrimero = primeraPosicionSeleccionada % 10;
-
+			//}
 			Memory.descubrirCasillaTablero(primeraPosicionSeleccionada);
 
 			Memory.muestraTableroDeJuego();
@@ -47,23 +45,20 @@ public class Main {
 			System.out.println("Elija otra posición");
 			// Y la asignamos
 			segundaPosicionSeleccionada = sc.nextInt();
-			izquierdaSegundo = segundaPosicionSeleccionada / 10;
-			derechaSegundo = segundaPosicionSeleccionada % 10;
 
 			Memory.descubrirCasillaTablero(segundaPosicionSeleccionada);
 
 			Memory.muestraTableroDeJuego();
 
-			if (tableroDejuego[izquierdaPrimero][derechaPrimero] != tableroDejuego[izquierdaSegundo][derechaSegundo]) {
-				tableroDejuego[izquierdaPrimero][derechaPrimero] = 0;
-				tableroDejuego[izquierdaSegundo][derechaSegundo] = 0;
-				System.out.println("Fallo, son distintas");
-			}else
-				System.out.println("Genial, has encontrado una pareja");
-			
+			parejaIgual = Memory.comprobarPareja(primeraPosicionSeleccionada, segundaPosicionSeleccionada);
+
+			System.out.println(parejaIgual ? "Genial, has encontrado una pareja" : "Fallo, son distintas");
+
 			sc.nextLine();
 			System.out.println("Pulsa intro para continuar");
 			sc.nextLine();
 		}
+
+		sc.close();
 	}
 }

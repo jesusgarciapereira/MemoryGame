@@ -33,6 +33,7 @@ public class Memory {
 		return tableroDeJuego;
 	}
 
+	
 	/**
 	 * Funcion que modifica el atributo solucion, generando las parejas de numeros
 	 * en posiciones aleatorias, pero no sera visible
@@ -111,7 +112,7 @@ public class Memory {
 					System.out.print(i + "|\t");
 				}
 				// Lo muestra sólo si es distinto de 0
-				System.out.print((tableroDeJuego[i][j] != 0 ? tableroDeJuego[i][j] : "" ) + "\t");
+				System.out.print((tableroDeJuego[i][j] != 0 ? tableroDeJuego[i][j] : "") + "\t");
 			}
 			System.out.println();
 		}
@@ -138,6 +139,24 @@ public class Memory {
 		// El elemento del tablero de juego será igual al elemento que esté en la misma
 		// posición en la tabla solución
 		tableroDeJuego[izquierda][derecha] = solucion[izquierda][derecha];
+
+	}
+
+	public static boolean comprobarPareja(int posicion1, int posicion2) {
+		boolean sonIguales = true;
+
+		int izq1 = posicion1 / 10;
+		int der1 = posicion1 % 10;
+		int izq2 = posicion2 / 10;
+		int der2 = posicion2 % 10;
+
+		if (tableroDeJuego[izq1][der1] != tableroDeJuego[izq2][der2]) {
+			tableroDeJuego[izq1][der1] = 0; 
+			tableroDeJuego[izq2][der2] = 0;
+			sonIguales = false;
+		}
+
+			return sonIguales;
 
 	}
 
