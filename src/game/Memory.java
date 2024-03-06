@@ -12,21 +12,30 @@ public class Memory {
 	/**
 	 * Constante con el tamannio del tablero
 	 */
-	static final int TAM_TABLERO = 4;
+	private static final int TAM_TABLERO = 4;
 
 	/**
 	 * Tabla con la solucion completa
 	 */
-	static int[][] solucion = new int[TAM_TABLERO][TAM_TABLERO];
+	private static int[][] solucion = new int[TAM_TABLERO][TAM_TABLERO];
 
 	/**
 	 * Tabla que se muestra en el tablero de juego
 	 */
-	static int[][] tableroDeJuego = new int[TAM_TABLERO][TAM_TABLERO];
+	private static int[][] tableroDeJuego = new int[TAM_TABLERO][TAM_TABLERO];
 
 	/**
-	 * Funcion que modifica el atributo solucion la solucion, las posciones en las
-	 * que iran todos los numeros, pero no sera visible
+	 * Funcion que devuelve el valor del atributo tableroDeJuego
+	 * 
+	 * @return Valor de tableroDeJuego
+	 */
+	public static int[][] getTableroDeJuego() {
+		return tableroDeJuego;
+	}
+
+	/**
+	 * Funcion que modifica el atributo solucion, generando las parejas de numeros
+	 * en posiciones aleatorias, pero no sera visible
 	 */
 	public static void generaSolucion() {
 		// Numero que ocupará un lugar en la tabla, inicializado en 1
@@ -102,10 +111,82 @@ public class Memory {
 					System.out.print(i + "|\t");
 				}
 				// Lo muestra sólo si es distinto de 0
-				System.out.print(tableroDeJuego[i][j] != 0 ? tableroDeJuego[i][j] : " " + "\t");
+				System.out.print((tableroDeJuego[i][j] != 0 ? tableroDeJuego[i][j] : "" ) + "\t");
 			}
 			System.out.println();
 		}
+
+	}
+
+	/**
+	 * Funcion que modifica el tablero de juego, mostrando la posicion marcada en el
+	 * parametro
+	 * 
+	 * @param posicion Posicion de la tabla que sera visible
+	 */
+	public static void descubrirCasillaTablero(int posicion) {
+		// Número correspondiente a la fila
+		int izquierda;
+		// Número correspondiente a la columna
+		int derecha;
+
+		// Le asignamos la cifra de la izquierda con / 10
+		izquierda = posicion / 10;
+		// Le asignamos la cifra de la derecha con % 10
+		derecha = posicion % 10;
+
+		// El elemento del tablero de juego será igual al elemento que esté en la misma
+		// posición en la tabla solución
+		tableroDeJuego[izquierda][derecha] = solucion[izquierda][derecha];
+
+	}
+
+	/**
+	 * Funcion que indica si hemos terminado el juego
+	 * 
+	 * @return True o false segun si el juego se ha terminado o no
+	 */
+	public static boolean finDeJuego() {
+		// Variable que determina si el juego ha terminado, por ahora falso
+		boolean juegoTerminado = false;
+
+		// Número a encontrar en el tablero: el 0
+		int numEncontrar = 0;
+
+		// Posiciones de la tabla tableroDeJuego (inicializadas en -1)
+		int posX = -1;
+		int posY = -1;
+
+		// Contador de las filas
+		int i = 0;
+		// Mientras el contador de filas sea menor al número de filas del tableroDeJuego
+		// y posX sea -1
+		while (i < tableroDeJuego.length && posX == -1) {
+			// Contador de las columnas
+			int j = 0;
+			// Mientras el contador de columnas sea menor al número de columnas del
+			// tableroDeJuego y posY sea -1
+			while (j < tableroDeJuego[i].length && posY == -1) {
+				// Si el número que buscamos está presente en el tableroDeJuego
+				if (tableroDeJuego[i][j] == numEncontrar) {
+					// Le asignamos las posiciones en donde ha sido encontrado
+					posX = i;
+					posY = j;
+				}
+				// Incrementamos el contador de las columnas
+				j++;
+			}
+			// Incrementamos el contador de las filas
+			i++;
+		}
+
+		// Si el número no ha sido encontrado
+		if (posX == -1 && posY == -1)
+			// El juego habrá terminado
+			juegoTerminado = true;
+
+		// Devolverá el valor de juegoTerminado
+		return juegoTerminado;
 
 	}
 

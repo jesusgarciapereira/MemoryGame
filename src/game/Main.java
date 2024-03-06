@@ -9,31 +9,61 @@ public class Main {
 	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		// POR AHORA ESTO ES PARA PROBAR LO QUE ESTAMOS HACIENDO EN LA CLASE MEMORY
-		int[][] solucion = Memory.solucion;
-		
-		Memory.muestraTableroDeJuego();
 
-		int numEncontrar = 5;
+		int[][] tableroDejuego = Memory.getTableroDeJuego();
 
-		int posX = -1;
-		int posY = -1;
-		int i = 0;
+		// Primera posición seleccionada por el jugador
+		int primeraPosicionSeleccionada;
+		// Segunda posición seleccionada por el jugador
+		int segundaPosicionSeleccionada;
 
-		while (i < solucion.length && posX == -1) {
-			int j = 0;
-			while (j < solucion[i].length && posY == -1) {
-				if (solucion[i][j] == numEncontrar) {
-					posX = i;
-					posY = j;
-				}
-				j++;
+		int izquierdaPrimero;
+		int derechaPrimero;
+		int izquierdaSegundo;
+		int derechaSegundo;
 
-			}
-			i++;
+		// Activamos el Scanner
+		Scanner sc = new Scanner(System.in);
+
+		// Llamamos a la función generaSolucion() para asignar los valores aleatorios de
+		// la tabla solucion
+		Memory.generaSolucion();
+
+		while (!Memory.finDeJuego()) {
+			Memory.muestraTableroDeJuego();
+
+			// Le pedimos al usuario la primera posición
+			System.out.println("Elija una posición");
+			// Y la asignamos
+			primeraPosicionSeleccionada = sc.nextInt();
+			izquierdaPrimero = primeraPosicionSeleccionada / 10;
+			derechaPrimero = primeraPosicionSeleccionada % 10;
+
+			Memory.descubrirCasillaTablero(primeraPosicionSeleccionada);
+
+			Memory.muestraTableroDeJuego();
+
+			// Le pedimos al usuario la segunda posición
+			System.out.println("Elija otra posición");
+			// Y la asignamos
+			segundaPosicionSeleccionada = sc.nextInt();
+			izquierdaSegundo = segundaPosicionSeleccionada / 10;
+			derechaSegundo = segundaPosicionSeleccionada % 10;
+
+			Memory.descubrirCasillaTablero(segundaPosicionSeleccionada);
+
+			Memory.muestraTableroDeJuego();
+
+			if (tableroDejuego[izquierdaPrimero][derechaPrimero] != tableroDejuego[izquierdaSegundo][derechaSegundo]) {
+				tableroDejuego[izquierdaPrimero][derechaPrimero] = 0;
+				tableroDejuego[izquierdaSegundo][derechaSegundo] = 0;
+				System.out.println("Fallo, son distintas");
+			}else
+				System.out.println("Genial, has encontrado una pareja");
+			
+			sc.nextLine();
+			System.out.println("Pulsa intro para continuar");
+			sc.nextLine();
 		}
-		
-		System.out.println(posX + " " + posY);
-
 	}
 }
