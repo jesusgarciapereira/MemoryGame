@@ -1,7 +1,7 @@
 
-
 package game;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +13,6 @@ public class Main {
 	public static void main(String[] args) {
 
 		int[][] tableroDejuego = Memory.getTableroDeJuego();
-
 
 		// Primera posición seleccionada por el jugador
 		int primeraPosicionSeleccionada;
@@ -29,47 +28,58 @@ public class Main {
 		// la tabla solucion
 		Memory.generaSolucion();
 
-		while (!Memory.finDeJuego()) {
-			
+		while (!Memory.finDeJuego()) { // empieza
+
 			primeraPosicionSeleccionada = -1;
 			segundaPosicionSeleccionada = -1;
-			
+
 			System.out.println("Pulsa intro para continuar");
 			sc.nextLine();
-			
+
 			Memory.muestraTableroDeJuego();
 
-			while (!Memory.numElegible(primeraPosicionSeleccionada)) 
-			{
-				// Le pedimos al usuario la primera posición
-				System.out.println("Elija una posición");
-				// Y la asignamos
-				primeraPosicionSeleccionada = sc.nextInt();
+			while (!Memory.numElegible(primeraPosicionSeleccionada)) {
+				try {
+					// Le pedimos al usuario la primera posición
+					System.out.println("Elija una posición");
+					// Y la asignamos
+					primeraPosicionSeleccionada = sc.nextInt();
+				} catch (InputMismatchException e) {
+					System.out.println("Solo se admiten numeros");
+				} finally {
+					sc.nextLine();
+				}
+
 			}
-			
+
 			Memory.descubrirCasillaTablero(primeraPosicionSeleccionada);
-			
-			Memory.muestraTableroDeJuego();
-			
-			System.out.println("FILA " + primeraPosicionSeleccionada / 10 + ", COLUMNA "
-					+ primeraPosicionSeleccionada % 10 + " = "
-					+ tableroDejuego[primeraPosicionSeleccionada / 10][primeraPosicionSeleccionada % 10]);
 
-		
+			Memory.muestraTableroDeJuego();
+
+			System.out.println(
+					"FILA " + primeraPosicionSeleccionada / 10 + ", COLUMNA " + primeraPosicionSeleccionada % 10 + " = "
+							+ tableroDejuego[primeraPosicionSeleccionada / 10][primeraPosicionSeleccionada % 10]);
+
 			while (!Memory.numElegible(segundaPosicionSeleccionada)) {
-				// Le pedimos al usuario la segunda posición
-				System.out.println("Elija otra posición");
-				// Y la asignamos
-				segundaPosicionSeleccionada = sc.nextInt();
+				try {
+					// Le pedimos al usuario la segunda posición
+					System.out.println("Elija otra posición");
+					// Y la asignamos
+					segundaPosicionSeleccionada = sc.nextInt();
+				} catch (InputMismatchException e) {
+					System.out.println("Solo se admiten numeros");
+				} finally {
+					sc.nextLine();
+				}
 			}
-			
+
 			Memory.descubrirCasillaTablero(segundaPosicionSeleccionada);
 
 			Memory.muestraTableroDeJuego();
-			
-			System.out.println("FILA " + segundaPosicionSeleccionada / 10 + ", COLUMNA "
-					+ segundaPosicionSeleccionada % 10 + " = "
-					+ tableroDejuego[segundaPosicionSeleccionada / 10][segundaPosicionSeleccionada % 10]);
+
+			System.out.println(
+					"FILA " + segundaPosicionSeleccionada / 10 + ", COLUMNA " + segundaPosicionSeleccionada % 10 + " = "
+							+ tableroDejuego[segundaPosicionSeleccionada / 10][segundaPosicionSeleccionada % 10]);
 
 			parejaIgual = Memory.comprobarPareja(primeraPosicionSeleccionada, segundaPosicionSeleccionada);
 
@@ -77,12 +87,11 @@ public class Main {
 
 			sc.nextLine();
 
-		}
-		
+		} // termina
+
 		System.out.println("ENHORABUENA, has completado el juego");
 
 		sc.close();
 	}
 
-	
 }

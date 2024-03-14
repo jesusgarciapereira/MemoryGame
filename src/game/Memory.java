@@ -126,7 +126,7 @@ public class Memory {
 						|| posicionSeleccionada / 10 >= tableroDejuego.length
 						|| posicionSeleccionada % 10 >= tableroDejuego[0].length
 						|| tableroDejuego[posicionSeleccionada / 10][posicionSeleccionada
-								% 10] != 0 || String.valueOf(posicionSeleccionada).length() != 2)
+								% 10] != 0 /*|| (String.valueOf(posicionSeleccionada).length() != 2)*/)
 					elegible = false;
 		return elegible;
 	}
