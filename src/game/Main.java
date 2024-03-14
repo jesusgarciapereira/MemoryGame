@@ -1,3 +1,5 @@
+
+
 package game;
 
 import java.util.Scanner;
@@ -37,11 +39,8 @@ public class Main {
 			
 			Memory.muestraTableroDeJuego();
 
-			while (primeraPosicionSeleccionada < 0
-					|| primeraPosicionSeleccionada / 10 >= tableroDejuego.length
-					|| primeraPosicionSeleccionada % 10 >= tableroDejuego[0].length
-					|| tableroDejuego[primeraPosicionSeleccionada / 10][primeraPosicionSeleccionada
-							% 10] != 0) {
+			while (!Memory.numElegible(primeraPosicionSeleccionada)) 
+			{
 				// Le pedimos al usuario la primera posición
 				System.out.println("Elija una posición");
 				// Y la asignamos
@@ -57,11 +56,7 @@ public class Main {
 					+ tableroDejuego[primeraPosicionSeleccionada / 10][primeraPosicionSeleccionada % 10]);
 
 		
-			while (segundaPosicionSeleccionada < 0
-					|| segundaPosicionSeleccionada / 10 >= tableroDejuego.length
-					|| segundaPosicionSeleccionada % 10 >= tableroDejuego[0].length
-					|| tableroDejuego[segundaPosicionSeleccionada / 10][segundaPosicionSeleccionada
-							% 10] != 0) {
+			while (!Memory.numElegible(segundaPosicionSeleccionada)) {
 				// Le pedimos al usuario la segunda posición
 				System.out.println("Elija otra posición");
 				// Y la asignamos
@@ -83,8 +78,11 @@ public class Main {
 			sc.nextLine();
 
 		}
+		
 		System.out.println("ENHORABUENA, has completado el juego");
 
 		sc.close();
 	}
+
+	
 }

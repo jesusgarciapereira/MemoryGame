@@ -111,13 +111,26 @@ public class Memory {
 					System.out.print(i + "|\t");
 				}
 				// Lo muestra sólo si es distinto de 0
-				System.out.print((tableroDeJuego[i][j] != 0 ? tableroDeJuego[i][j] : "") + "\t");
+				System.out.print((tableroDeJuego[i][j] != 0 ? tableroDeJuego[i][j] : "X") + "\t");
 			}
 			System.out.println();
 		}
 		System.out.println();
 	}
-
+	public static boolean numElegible(int posicionSeleccionada) {
+		
+		int[][] tableroDejuego = tableroDeJuego;
+		
+		boolean elegible = true;
+				if(posicionSeleccionada < 0
+						|| posicionSeleccionada / 10 >= tableroDejuego.length
+						|| posicionSeleccionada % 10 >= tableroDejuego[0].length
+						|| tableroDejuego[posicionSeleccionada / 10][posicionSeleccionada
+								% 10] != 0 || String.valueOf(posicionSeleccionada).length() != 2)
+					elegible = false;
+		return elegible;
+	}
+	
 	/**
 	 * Funcion que modifica el tablero de juego, mostrando la posicion marcada en el
 	 * parametro
