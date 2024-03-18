@@ -1,5 +1,6 @@
 package game;
 
+
 import java.util.Random;
 
 /**
@@ -119,17 +120,17 @@ public class Memory {
 		System.out.println();
 	}
 
-	public static boolean numDescubierto(int fila, int columna) {
-
-		int[][] tableroDejuego = tableroDeJuego;
-
-		boolean descubierto = false;
-		
-		if (fila >= 0 && columna >= 0 && tableroDejuego[fila][columna] != 0) {
-			descubierto = true;
-		}
-		return descubierto;
-	}
+//	public static boolean numDescubierto(int fila, int columna) {
+//
+//		int[][] tableroDejuego = tableroDeJuego;
+//
+//		boolean descubierto = false;
+//		
+//		if (fila >= 0 && columna >= 0 && tableroDejuego[fila][columna] != 0) {
+//			descubierto = true;
+//		}
+//		return descubierto;
+//	}
 
 	/**
 	 * Funcion que modifica el tablero de juego, mostrando la posicion marcada en el
@@ -157,6 +158,7 @@ public class Memory {
 		return sonIguales;
 
 	}
+	
 
 	/**
 	 * Funcion que indica si hemos terminado el juego
