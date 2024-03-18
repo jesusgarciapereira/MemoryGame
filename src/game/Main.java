@@ -14,15 +14,16 @@ public class Main {
 
 		int[][] tableroDejuego = Memory.getTableroDeJuego();
 
-		// Primera posición seleccionada por el jugador
-		int primeraPosicionSeleccionada;
-		// Segunda posición seleccionada por el jugador
-		int segundaPosicionSeleccionada;
+		// Primera fila seleccionada por el jugador
+		int primeraFila;
+		// Primera columna seleccionada por el jugador
+		int primeraColumna;
+		// Segunda fila seleccionada por el jugador
+		int segundaFila;
+		// Segunda columna seleccionada por el jugador
+		int segundaColumna;
 
 		boolean parejaIgual;
-
-		// Activamos el Scanner
-		Scanner sc = new Scanner(System.in);
 
 		// Llamamos a la función generaSolucion() para asignar los valores aleatorios de
 		// la tabla solucion
@@ -30,62 +31,100 @@ public class Main {
 
 		while (!Memory.finDeJuego()) { // empieza
 
-			primeraPosicionSeleccionada = -1;
-			segundaPosicionSeleccionada = -1;
-
 			System.out.println("Pulsa intro para continuar");
 			sc.nextLine();
 
 			Memory.muestraTableroDeJuego();
 
-			while (!Memory.numElegible(primeraPosicionSeleccionada)) {
-				try {
-					// Le pedimos al usuario la primera posición
-					System.out.println("Elija una posición");
-					// Y la asignamos
-					primeraPosicionSeleccionada = sc.nextInt();
-				} catch (InputMismatchException e) {
-					System.out.println("Solo se admiten numeros");
-				} finally {
-					sc.nextLine();
+			do {
+				primeraFila = -1;
+				primeraColumna = -1;
+				while (primeraFila < 0 || primeraFila >= Memory.TAM_TABLERO) {
+					try {
+						// Le pedimos al usuario la primera posición
+						System.out.println("Elija una fila");
+						// Y la asignamos
+						primeraFila = sc.nextInt();
+					} catch (InputMismatchException e) {
+						System.out.println("Sólo se admiten números enteros");
+					} finally {
+						sc.nextLine();
+					}
+
 				}
 
-			}
+				while (primeraColumna < 0 || primeraColumna >= Memory.TAM_TABLERO) {
+					try {
+						// Le pedimos al usuario la primera posición
+						System.out.println("Elija una columna");
+						// Y la asignamos
+						primeraColumna = sc.nextInt();
+					} catch (InputMismatchException e) {
+						System.out.println("Solo se admiten números enteros");
+					} finally {
+						sc.nextLine();
+					}
 
-			Memory.descubrirCasillaTablero(primeraPosicionSeleccionada);
+				}
+				
+				if(Memory.getTableroDeJuego()[primeraFila][primeraColumna] != 0) {
+					System.out.println("Esa posición ya está descubierta");
+				}
+
+			} while (Memory.getTableroDeJuego()[primeraFila][primeraColumna] != 0);
+			
+			Memory.descubrirCasillaTablero(primeraFila, primeraColumna);
 
 			Memory.muestraTableroDeJuego();
 
-			System.out.println(
-					"FILA " + primeraPosicionSeleccionada / 10 + ", COLUMNA " + primeraPosicionSeleccionada % 10 + " = "
-							+ tableroDejuego[primeraPosicionSeleccionada / 10][primeraPosicionSeleccionada % 10]);
+			System.out.println("FILA " + primeraFila + ", COLUMNA " + primeraColumna + " = "
+					+ tableroDejuego[primeraFila][primeraColumna]);
 
-			while (!Memory.numElegible(segundaPosicionSeleccionada)) {
-				try {
-					// Le pedimos al usuario la segunda posición
-					System.out.println("Elija otra posición");
-					// Y la asignamos
-					segundaPosicionSeleccionada = sc.nextInt();
-				} catch (InputMismatchException e) {
-					System.out.println("Solo se admiten numeros");
-				} finally {
-					sc.nextLine();
+			do {
+				segundaFila = -1;
+				segundaColumna = -1;
+				while (segundaFila < 0 || segundaFila >= Memory.TAM_TABLERO) {
+					try {
+						// Le pedimos al usuario la segunda posición
+						System.out.println("Elija una fila");
+						// Y la asignamos
+						segundaFila = sc.nextInt();
+					} catch (InputMismatchException e) {
+						System.out.println("Sólo se admiten números enteros");
+					} finally {
+						sc.nextLine();
+					}
 				}
-			}
 
-			Memory.descubrirCasillaTablero(segundaPosicionSeleccionada);
+				while (segundaColumna < 0 || segundaColumna >= Memory.TAM_TABLERO) {
+					try {
+						// Le pedimos al usuario la primera posición
+						System.out.println("Elija una columna");
+						// Y la asignamos
+						segundaColumna = sc.nextInt();
+					} catch (InputMismatchException e) {
+						System.out.println("Solo se admiten números enteros");
+					} finally {
+						sc.nextLine();
+					}
+
+				}
+				if(Memory.getTableroDeJuego()[segundaFila][segundaColumna] != 0) {
+					System.out.println("Esa posición ya está descubierta");
+				}
+			} while (Memory.getTableroDeJuego()[segundaFila][segundaColumna] != 0);
+
+				Memory.descubrirCasillaTablero(segundaFila, segundaColumna);
+
 
 			Memory.muestraTableroDeJuego();
 
-			System.out.println(
-					"FILA " + segundaPosicionSeleccionada / 10 + ", COLUMNA " + segundaPosicionSeleccionada % 10 + " = "
-							+ tableroDejuego[segundaPosicionSeleccionada / 10][segundaPosicionSeleccionada % 10]);
+			System.out.println("FILA " + segundaFila + ", COLUMNA " + segundaColumna + " = "
+					+ tableroDejuego[segundaFila][segundaColumna]);
 
-			parejaIgual = Memory.comprobarPareja(primeraPosicionSeleccionada, segundaPosicionSeleccionada);
+			parejaIgual = Memory.comprobarPareja(primeraFila, primeraColumna, segundaFila, segundaColumna);
 
 			System.out.println(parejaIgual ? "Genial, has encontrado una pareja" : "Fallo, son distintos");
-
-			sc.nextLine();
 
 		} // termina
 

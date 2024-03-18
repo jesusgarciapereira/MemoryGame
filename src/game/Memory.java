@@ -12,7 +12,7 @@ public class Memory {
 	/**
 	 * Constante con el tamannio del tablero
 	 */
-	private static final int TAM_TABLERO = 4;
+	public static final int TAM_TABLERO = 4;
 
 	/**
 	 * Tabla con la solucion completa
@@ -56,9 +56,10 @@ public class Memory {
 			for (int j = 0; j < solucion[i].length; j++) {
 
 				// Si el numero para rellenar supera el límite máximo
-				if (numParaRellenar > Math.pow(TAM_TABLERO, 2) / 2)
+				if (numParaRellenar > Math.pow(TAM_TABLERO, 2) / 2) {
 					// Se le asigna el 1
 					numParaRellenar = 1;
+				}
 
 				// Asignamos el número a la posición correspondiente
 				solucion[i][j] = numParaRellenar;
@@ -95,7 +96,7 @@ public class Memory {
 	 * Función que muestra el tablero de juego
 	 */
 	public static void muestraTableroDeJuego() {
-		System.out.println("\t\t\t COLUMNA");
+		System.out.println("\t\t\t COLUMN");
 		System.out.print("\t\t");
 		for (int j = 0; j < tableroDeJuego[0].length; j++) {
 			System.out.print(j + "\t");
@@ -105,66 +106,51 @@ public class Memory {
 		System.out.println("\t\t-------------------------");
 
 		for (int i = 0; i < tableroDeJuego.length; i++) {
-			System.out.print((i == 0 ? "FILA" : "") + "\t");
+			System.out.print((i == 0 ? "ROW" : "") + "\t");
 			for (int j = 0; j < tableroDeJuego[i].length; j++) {
 				if (j == 0) {
 					System.out.print(i + "|\t");
 				}
 				// Lo muestra sólo si es distinto de 0
-				System.out.print((tableroDeJuego[i][j] != 0 ? tableroDeJuego[i][j] : "X") + "\t");
+				System.out.print((tableroDeJuego[i][j] != 0 ? tableroDeJuego[i][j] : "\u25A0") + "\t");
 			}
 			System.out.println();
 		}
 		System.out.println();
 	}
-	public static boolean numElegible(int posicionSeleccionada) {
-		
+
+	public static boolean numDescubierto(int fila, int columna) {
+
 		int[][] tableroDejuego = tableroDeJuego;
+
+		boolean descubierto = false;
 		
-		boolean elegible = true;
-				if(posicionSeleccionada < 0
-						|| posicionSeleccionada / 10 >= tableroDejuego.length
-						|| posicionSeleccionada % 10 >= tableroDejuego[0].length
-						|| tableroDejuego[posicionSeleccionada / 10][posicionSeleccionada
-								% 10] != 0)
-					elegible = false;
-		return elegible;
+		if (fila >= 0 && columna >= 0 && tableroDejuego[fila][columna] != 0) {
+			descubierto = true;
+		}
+		return descubierto;
 	}
-	
+
 	/**
 	 * Funcion que modifica el tablero de juego, mostrando la posicion marcada en el
 	 * parametro
 	 * 
 	 * @param posicion Posicion de la tabla que sera visible
 	 */
-	public static void descubrirCasillaTablero(int posicion) {
-		// Número correspondiente a la fila
-		int izquierda;
-		// Número correspondiente a la columna
-		int derecha;
-
-		// Le asignamos la cifra de la izquierda con / 10
-		izquierda = posicion / 10;
-		// Le asignamos la cifra de la derecha con % 10
-		derecha = posicion % 10;
+	public static void descubrirCasillaTablero(int fila, int columna) {
 
 		// El elemento del tablero de juego será igual al elemento que esté en la misma
 		// posición en la tabla solución
-		tableroDeJuego[izquierda][derecha] = solucion[izquierda][derecha];
+		tableroDeJuego[fila][columna] = solucion[fila][columna];
 
 	}
 
-	public static boolean comprobarPareja(int posicion1, int posicion2) {
+	public static boolean comprobarPareja(int primeraFila, int primeraColumna, int segundaFila, int segundaColumna) {
 		boolean sonIguales = true;
 
-		int izq1 = posicion1 / 10;
-		int der1 = posicion1 % 10;
-		int izq2 = posicion2 / 10;
-		int der2 = posicion2 % 10;
-
-		if (tableroDeJuego[izq1][der1] != tableroDeJuego[izq2][der2]) {
-			tableroDeJuego[izq1][der1] = 0;
-			tableroDeJuego[izq2][der2] = 0;
+		if (tableroDeJuego[primeraFila][primeraColumna] != tableroDeJuego[segundaFila][segundaColumna]) {
+			tableroDeJuego[primeraFila][primeraColumna] = 0;
+			tableroDeJuego[segundaFila][segundaColumna] = 0;
 			sonIguales = false;
 		}
 
