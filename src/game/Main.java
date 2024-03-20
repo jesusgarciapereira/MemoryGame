@@ -12,8 +12,6 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// Tamaño del tablero
-		int tamTablero;
 		// Tablero de juego que se muestra en pantalla
 		int[][] tableroDejuego;
 		// Dificultad seleccionada por el usuario
@@ -38,19 +36,16 @@ public class Main {
 			// Y la asignamos
 			dificultad = sc.nextLine();
 		}
-		
+
 		// Una vez seleccionada la dificultad, inicializamos las propiedades
 		Memory.inicializar(dificultad.toLowerCase());
-	
-		// Asignamos los valores elegidos a las variables tamTablero y tableroDeJuego
-		tamTablero = Memory.getTamTablero();
-		tableroDejuego = Memory.getTableroDeJuego();
-
 		// Asignamos los valores de la propiedad del tablero solución
 		Memory.generaSolucion();
+		// Asignamos el valor del tableroDeJuego
+		tableroDejuego = Memory.getTableroDeJuego();
 
 		// Mientras el juego no haya terminado
-		while (!Memory.finDeJuego()) { 
+		while (!Memory.finDeJuego()) {
 
 			System.out.println("Pulsa intro para continuar");
 			sc.nextLine();
@@ -59,45 +54,10 @@ public class Main {
 			Memory.muestraTableroDeJuego();
 
 			do {
-				// Inicializamos la fila y la columna del primer número
-				primeraFila = -1;
-				primeraColumna = -1;
-				
-				// Mientras la primera fila no esté entre los números elegibles
-				while (primeraFila < 0 || primeraFila >= tamTablero) {
-					try {
-						// Le pedimos al usuario la primera fila
-						System.out.println("Elija una fila");
-						// Y la asignamos
-						primeraFila = sc.nextInt();
-						// Si no se escribe un número entero
-					} catch (InputMismatchException e) {
-						// Muestra este mensaje
-						System.out.println("Sólo se admiten números enteros");
-					} finally {
-						// Siempre limpiamos el buffer
-						sc.nextLine();
-					}
-
-				}
-
-				// Mientras la primera columna no esté entre los números elegibles
-				while (primeraColumna < 0 || primeraColumna >= tamTablero) {
-					try {
-						// Le pedimos al usuario la primera columna
-						System.out.println("Elija una columna");
-						// Y la asignamos
-						primeraColumna = sc.nextInt();
-						// Si no se escribe un número entero
-					} catch (InputMismatchException e) {
-						// Muestra este mensaje
-						System.out.println("Solo se admiten números enteros");
-					} finally {
-						// Siempre limpiamos el buffer
-						sc.nextLine();
-					}
-
-				}
+				// Pedimos la primera fila
+				primeraFila = pideNumero("Elija una fila");
+				// Pedimos la primera columna
+				primeraColumna = pideNumero("Elija una columna");
 
 				// Si la posición elegida corresponde a un número distinto de 0
 				if (tableroDejuego[primeraFila][primeraColumna] != 0) {
@@ -105,13 +65,15 @@ public class Main {
 					System.out.println("Esa posición ya está descubierta");
 				}
 
-				// Mientras la posición indicada no sea distinto de 0, pedirá de nuevo la fila y la columna
+				// Mientras la posición indicada no sea distinto de 0, pedirá de nuevo la fila y
+				// la columna
 			} while (tableroDejuego[primeraFila][primeraColumna] != 0);
 
 			// Una vez elegidos los valores correctos, descubrimos el número oculto
 			Memory.descubrirCasillaTablero(primeraFila, primeraColumna);
 
-			// Mostramos de nuevo el tablero de juego con el número que se acaba de descubrir
+			// Mostramos de nuevo el tablero de juego con el número que se acaba de
+			// descubrir
 			Memory.muestraTableroDeJuego();
 
 			// Mostramos un mensaje indicando la opción elegida
@@ -119,58 +81,26 @@ public class Main {
 					+ tableroDejuego[primeraFila][primeraColumna]);
 
 			do {
-				// Inicializamos la fila y la columna del segundo número
-				segundaFila = -1;
-				segundaColumna = -1;
-				
-				// Mientras la segunda fila no esté entre los números elegibles
-				while (segundaFila < 0 || segundaFila >= tamTablero) {
-					try {
-						// Le pedimos al usuario la segunda fila
-						System.out.println("Elija una fila");
-						// Y la asignamos
-						segundaFila = sc.nextInt();
-						// Si no se escribe un número entero
-					} catch (InputMismatchException e) {
-						// Muestra este mensaje
-						System.out.println("Sólo se admiten números enteros");
-					} finally {
-						// Siempre limpiamos el buffer
-						sc.nextLine();
-					}
-				}
+				// Pedimos la segunda fila
+				segundaFila = pideNumero("Elija una fila");
+				// Pedimos la primera columna
+				segundaColumna = pideNumero("Elija una columna");
 
-				// Mientras la segunda columna no esté entre los números elegibles
-				while (segundaColumna < 0 || segundaColumna >= tamTablero) {
-					try {
-						// Le pedimos al usuario la primera columna
-						System.out.println("Elija una columna");
-						// Y la asignamos
-						segundaColumna = sc.nextInt();
-						// Si no se escribe un número entero
-					} catch (InputMismatchException e) {
-						// Muestra este mensaje
-						System.out.println("Solo se admiten números enteros");
-					} finally {
-						// Siempre limpiamos el buffer
-						sc.nextLine();
-					}
-
-				}
-				
 				// Si la posición elegida corresponde a un número distinto de 0
 				if (tableroDejuego[segundaFila][segundaColumna] != 0) {
 					// Es porque dicha posición ya está descubierta, lo indicará
 					System.out.println("Esa posición ya está descubierta");
 				}
-				
-				// Mientras la posición indicada no sea distinto de 0, pedirá de nuevo la fila y la columna
+
+				// Mientras la posición indicada no sea distinto de 0, pedirá de nuevo la fila y
+				// la columna
 			} while (tableroDejuego[segundaFila][segundaColumna] != 0);
 
 			// Una vez elegidos los valores correctos, descubrimos el número oculto
 			Memory.descubrirCasillaTablero(segundaFila, segundaColumna);
 
-			// Mostramos de nuevo el tablero de juego con el número que se acaba de descubrir
+			// Mostramos de nuevo el tablero de juego con el número que se acaba de
+			// descubrir
 			Memory.muestraTableroDeJuego();
 
 			// Mostramos un mensaje indicando la opción elegida
@@ -182,7 +112,7 @@ public class Main {
 			// Según su valor, indicará si son iguales o no
 			System.out.println(parejaIgual ? "Genial, has encontrado una pareja" : "Fallo, son distintos");
 
-		} 
+		}
 
 		// Mensaje de finalización del juego
 		System.out.println("ENHORABUENA, has completado el juego");
@@ -191,4 +121,36 @@ public class Main {
 		sc.close();
 	}
 
+	/**
+	 * Metodo para pedir un numero al usuario
+	 * 
+	 * @param peticion Mensaje de la peticion
+	 * @return Devolvera el valor del numero que pedimos
+	 */
+	private static int pideNumero(String peticion) {
+
+		// Número que devolverá la función
+		int numero = -1;
+
+		do {
+			try {
+				// Mensaje de la petición correspondiente
+				System.out.println(peticion);
+				// Asignamos el número introducido por el usuario
+				numero = sc.nextInt();
+				// Si no se escribe un número entero
+			} catch (InputMismatchException e) {
+				// Muestra este mensaje
+				System.out.println("Sólo se admiten números enteros");
+			} finally {
+				// Siempre limpiamos el buffer
+				sc.nextLine();
+			}
+			// Mientras el número no esté dentro de los posibles índices del tablero se
+			// repetiran las instrucciones del do
+		} while (numero < 0 || numero >= Memory.getTamTablero());
+
+		// Devolverá el número asignado
+		return numero;
+	}
 }
