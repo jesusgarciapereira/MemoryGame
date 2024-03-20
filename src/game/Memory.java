@@ -1,6 +1,5 @@
 package game;
 
-
 import java.util.Random;
 
 /**
@@ -11,19 +10,27 @@ public class Memory {
 	static Random rand = new Random();
 
 	/**
-	 * Constante con el tamannio del tablero
+	 * Tamannio del tablero
 	 */
-	public static final int TAM_TABLERO = 4;
+	private static int tamTablero;
 
 	/**
 	 * Tabla con la solucion completa
 	 */
-	private static int[][] solucion = new int[TAM_TABLERO][TAM_TABLERO];
+	private static int[][] solucion;
 
 	/**
 	 * Tabla que se muestra en el tablero de juego
 	 */
-	private static int[][] tableroDeJuego = new int[TAM_TABLERO][TAM_TABLERO];
+	private static int[][] tableroDeJuego;
+
+	public static int getTamTablero() {
+		return tamTablero;
+	}
+
+//	public static void setTamTablero(int tamTablero) {
+//		Memory.tamTablero = tamTablero;
+//	}
 
 	/**
 	 * Funcion que devuelve el valor del atributo tableroDeJuego
@@ -32,6 +39,25 @@ public class Memory {
 	 */
 	public static int[][] getTableroDeJuego() {
 		return tableroDeJuego;
+	}
+
+	public static void asignarDificultad(String dificultad) {
+		switch (dificultad) {
+		case "easy":
+			tamTablero = 4;
+			break;
+		case "medium":
+			tamTablero = 6;
+			break;
+		case "hard":
+			tamTablero = 8;
+			break;
+
+		}
+
+		solucion = new int[tamTablero][tamTablero];
+		tableroDeJuego = new int[tamTablero][tamTablero];
+
 	}
 
 	/**
@@ -57,7 +83,7 @@ public class Memory {
 			for (int j = 0; j < solucion[i].length; j++) {
 
 				// Si el numero para rellenar supera el límite máximo
-				if (numParaRellenar > Math.pow(TAM_TABLERO, 2) / 2) {
+				if (numParaRellenar > Math.pow(tamTablero, 2) / 2) {
 					// Se le asigna el 1
 					numParaRellenar = 1;
 				}
@@ -97,14 +123,25 @@ public class Memory {
 	 * Función que muestra el tablero de juego
 	 */
 	public static void muestraTableroDeJuego() {
-		System.out.println("\t\t\t COLUMN");
+		System.out.println("\t\tCOLUMN");
 		System.out.print("\t\t");
 		for (int j = 0; j < tableroDeJuego[0].length; j++) {
 			System.out.print(j + "\t");
 		}
 
 		System.out.println();
-		System.out.println("\t\t-------------------------");
+
+		switch (tamTablero) {
+		case 4:
+			System.out.println("\t\t-------------------------");
+			break;
+		case 6:
+			System.out.println("\t\t-----------------------------------------");
+			break;
+		case 8:
+			System.out.println("\t\t---------------------------------------------------------");
+			break;
+		}
 
 		for (int i = 0; i < tableroDeJuego.length; i++) {
 			System.out.print((i == 0 ? "ROW" : "") + "\t");
@@ -158,7 +195,6 @@ public class Memory {
 		return sonIguales;
 
 	}
-	
 
 	/**
 	 * Funcion que indica si hemos terminado el juego

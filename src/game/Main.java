@@ -12,7 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		int[][] tableroDejuego = Memory.getTableroDeJuego();
+		int[][] tableroDejuego;
 
 		// Primera fila seleccionada por el jugador
 		int primeraFila;
@@ -23,7 +23,18 @@ public class Main {
 		// Segunda columna seleccionada por el jugador
 		int segundaColumna;
 
+		String dificultad = "";
 		boolean parejaIgual;
+
+		while (!dificultad.toLowerCase().equals("easy") && !dificultad.toLowerCase().equals("medium")
+				&& !dificultad.toLowerCase().equals("hard")) {
+			System.out.println("Elija dificultad: easy, medium or hard");
+			dificultad = sc.nextLine();
+		}
+
+		Memory.asignarDificultad(dificultad.toLowerCase());
+		
+		tableroDejuego = Memory.getTableroDeJuego();
 
 		// Llamamos a la función generaSolucion() para asignar los valores aleatorios de
 		// la tabla solucion
@@ -39,7 +50,7 @@ public class Main {
 			do {
 				primeraFila = -1;
 				primeraColumna = -1;
-				while (primeraFila < 0 || primeraFila >= Memory.TAM_TABLERO) {
+				while (primeraFila < 0 || primeraFila >= Memory.getTamTablero()) {
 					try {
 						// Le pedimos al usuario la primera posición
 						System.out.println("Elija una fila");
@@ -53,7 +64,7 @@ public class Main {
 
 				}
 
-				while (primeraColumna < 0 || primeraColumna >= Memory.TAM_TABLERO) {
+				while (primeraColumna < 0 || primeraColumna >= Memory.getTamTablero()) {
 					try {
 						// Le pedimos al usuario la primera posición
 						System.out.println("Elija una columna");
@@ -66,13 +77,13 @@ public class Main {
 					}
 
 				}
-				
-				if(Memory.getTableroDeJuego()[primeraFila][primeraColumna] != 0) {
+
+				if (Memory.getTableroDeJuego()[primeraFila][primeraColumna] != 0) {
 					System.out.println("Esa posición ya está descubierta");
 				}
 
 			} while (Memory.getTableroDeJuego()[primeraFila][primeraColumna] != 0);
-			
+
 			Memory.descubrirCasillaTablero(primeraFila, primeraColumna);
 
 			Memory.muestraTableroDeJuego();
@@ -83,7 +94,7 @@ public class Main {
 			do {
 				segundaFila = -1;
 				segundaColumna = -1;
-				while (segundaFila < 0 || segundaFila >= Memory.TAM_TABLERO) {
+				while (segundaFila < 0 || segundaFila >= Memory.getTamTablero()) {
 					try {
 						// Le pedimos al usuario la segunda posición
 						System.out.println("Elija una fila");
@@ -96,7 +107,7 @@ public class Main {
 					}
 				}
 
-				while (segundaColumna < 0 || segundaColumna >= Memory.TAM_TABLERO) {
+				while (segundaColumna < 0 || segundaColumna >= Memory.getTamTablero()) {
 					try {
 						// Le pedimos al usuario la primera posición
 						System.out.println("Elija una columna");
@@ -109,13 +120,12 @@ public class Main {
 					}
 
 				}
-				if(Memory.getTableroDeJuego()[segundaFila][segundaColumna] != 0) {
+				if (Memory.getTableroDeJuego()[segundaFila][segundaColumna] != 0) {
 					System.out.println("Esa posición ya está descubierta");
 				}
 			} while (Memory.getTableroDeJuego()[segundaFila][segundaColumna] != 0);
 
-				Memory.descubrirCasillaTablero(segundaFila, segundaColumna);
-
+			Memory.descubrirCasillaTablero(segundaFila, segundaColumna);
 
 			Memory.muestraTableroDeJuego();
 
