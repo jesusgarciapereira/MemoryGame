@@ -9,23 +9,7 @@ public class Pruebaclase {
 
 	
 
-//	public static void setTamTablero(int tamTablero) {
-//		Memory.tamTablero = tamTablero;
-//	 size of the board will be 4
-			tamTablero = 4;
-			break;
-		// if the value is "medium"
-		case "medium":
-			// The size of the board will be 6
-			tamTablero = 6;
-			break;
-		// if the value is "hard"
-		case "hard":
-			// The size of the board will be 8
-			tamTablero = 8;
-			break;
-
-		}
+		
 
 		// Inicializate the two boards with the size of the assigned board
 		solucion = new int[tamTablero][tamTablero];
