@@ -11,27 +11,7 @@ public class Pruebaclase {
 
 //	public static void setTamTablero(int tamTablero) {
 //		Memory.tamTablero = tamTablero;
-//	}
-
-	/**
-	 * Fuction thats return the value of the atribute called TableroDeJuego
-	 * @return value of the TableroDeJuego
-	 */
-	public static int[][] getTableroDeJuego() {
-		return tableroDeJuego;
-	}
-
-	/**
-	 * Function thats initializate all the atributes, assigning the correspondent values
-	 * accordint to the choosen difficulty
-	 * @param dificultad Difficulty choosen by the User
-	 */
-	public static void inicializar(String dificultad) {
-		// Accordint to the Difficulty's value
-		switch (dificultad) {
-		// if the value is "easy"
-		case "easy":
-			// The size of the board will be 4
+//	 size of the board will be 4
 			tamTablero = 4;
 			break;
 		// if the value is "medium"
