@@ -38,20 +38,20 @@ public class Main {
 		}
 
 		// Una vez seleccionada la dificultad, inicializamos las propiedades
-		Memory.inicializar(dificultad.toLowerCase());
+		Pruebaclase.inicializar(dificultad.toLowerCase());
 		// Asignamos los valores de la propiedad del tablero solución
-		Memory.generaSolucion();
+		Pruebaclase.generaSolucion();
 		// Asignamos el valor del tableroDeJuego
-		tableroDejuego = Memory.getTableroDeJuego();
+		tableroDejuego = Pruebaclase.getTableroDeJuego();
 
 		// Mientras el juego no haya terminado
-		while (!Memory.finDeJuego()) {
+		while (!Pruebaclase.finDeJuego()) {
 
 			System.out.println("Pulsa intro para continuar");
 			sc.nextLine();
 
 			// Mostramos el tablero de juego
-			Memory.muestraTableroDeJuego();
+			Pruebaclase.muestraTableroDeJuego();
 
 			do {
 				// Pedimos la primera fila
@@ -70,11 +70,11 @@ public class Main {
 			} while (tableroDejuego[primeraFila][primeraColumna] != 0);
 
 			// Una vez elegidos los valores correctos, descubrimos el número oculto
-			Memory.descubrirCasillaTablero(primeraFila, primeraColumna);
+			Pruebaclase.descubrirCasillaTablero(primeraFila, primeraColumna);
 
 			// Mostramos de nuevo el tablero de juego con el número que se acaba de
 			// descubrir
-			Memory.muestraTableroDeJuego();
+			Pruebaclase.muestraTableroDeJuego();
 
 			// Mostramos un mensaje indicando la opción elegida
 			System.out.println("FILA " + primeraFila + ", COLUMNA " + primeraColumna + " = "
@@ -97,18 +97,18 @@ public class Main {
 			} while (tableroDejuego[segundaFila][segundaColumna] != 0);
 
 			// Una vez elegidos los valores correctos, descubrimos el número oculto
-			Memory.descubrirCasillaTablero(segundaFila, segundaColumna);
+			Pruebaclase.descubrirCasillaTablero(segundaFila, segundaColumna);
 
 			// Mostramos de nuevo el tablero de juego con el número que se acaba de
 			// descubrir
-			Memory.muestraTableroDeJuego();
+			Pruebaclase.muestraTableroDeJuego();
 
 			// Mostramos un mensaje indicando la opción elegida
 			System.out.println("FILA " + segundaFila + ", COLUMNA " + segundaColumna + " = "
 					+ tableroDejuego[segundaFila][segundaColumna]);
 
 			// Comprobamos la pareja y asignamos true o false a parejaIgual
-			parejaIgual = Memory.comprobarPareja(primeraFila, primeraColumna, segundaFila, segundaColumna);
+			parejaIgual = Pruebaclase.comprobarPareja(primeraFila, primeraColumna, segundaFila, segundaColumna);
 			// Según su valor, indicará si son iguales o no
 			System.out.println(parejaIgual ? "Genial, has encontrado una pareja" : "Fallo, son distintos");
 
@@ -148,7 +148,7 @@ public class Main {
 			}
 			// Mientras el número no esté dentro de los posibles índices del tablero se
 			// repetiran las instrucciones del do
-		} while (numero < 0 || numero >= Memory.getTamTablero());
+		} while (numero < 0 || numero >= Pruebaclase.getTamTablero());
 
 		// Devolverá el número asignado
 		return numero;

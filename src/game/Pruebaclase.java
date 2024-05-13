@@ -3,75 +3,51 @@ package game;
 import java.util.Random;
 
 /**
- * Clase con las funciones del juego
+ * Class with the game features
  */
-public class Memory {
+public class Pruebaclase {
 
-	/**
-	 * Tamannio del tablero
-	 */
-	private static int tamTablero;
-
-	/**
-	 * Tabla con la solucion completa
-	 */
-	private static int[][] solucion;
-
-	/**
-	 * Tabla que se muestra en el tablero de juego
-	 */
-	private static int[][] tableroDeJuego;
-
-	/**
-	 * Funcion que devuelve el valor del atributo tamannio del tablero
-	 * 
-	 * @return Valor del tamannio del tablero
-	 */
-	public static int getTamTablero() {
-		return tamTablero;
-	}
+	
 
 //	public static void setTamTablero(int tamTablero) {
 //		Memory.tamTablero = tamTablero;
 //	}
 
 	/**
-	 * Funcion que devuelve el valor del atributo tableroDeJuego
-	 * 
-	 * @return Valor de tableroDeJuego
+	 * Fuction thats return the value of the atribute called TableroDeJuego
+	 * @return value of the TableroDeJuego
 	 */
 	public static int[][] getTableroDeJuego() {
 		return tableroDeJuego;
 	}
 
 	/**
-	 * Funcion que inicializa todos los atributos, asignando los valores
-	 * correspondientes segun la dificultad elegida
-	 * 
-	 * @param dificultad Dificultad elegida por el usuario
+	 * Function thats initializate all the atributes, assigning the correspondent values
+	 * accordint to the choosen difficulty
+	 * @param dificultad Difficulty choosen by the User
 	 */
 	public static void inicializar(String dificultad) {
-		// Según el valor de la dificultad
+		// Accordint to the Difficulty's value
 		switch (dificultad) {
-		// Si es "easy"
+		// if the value is "easy"
 		case "easy":
-			// El tamaño del tablero será 4
+			// The size of the board will be 4
 			tamTablero = 4;
 			break;
-		// Si es "medium"
+		// if the value is "medium"
 		case "medium":
-			// El tamaño del tablero será 6
+			// The size of the board will be 6
 			tamTablero = 6;
 			break;
-		// Si es "hard"
+		// if the value is "hard"
 		case "hard":
-			// El tamaño del tablero será 8
+			// The size of the board will be 8
 			tamTablero = 8;
 			break;
 
 		}
 
-		// Inicializo las dos tablas con el tamaño de tablero asignado
+		// Inicializate the two boards with the size of the assigned board
 		solucion = new int[tamTablero][tamTablero];
 		tableroDeJuego = new int[tamTablero][tamTablero];
 
@@ -80,38 +56,46 @@ public class Memory {
 	/**
 	 * Funcion que modifica el atributo solucion, generando las parejas de numeros
 	 * en posiciones aleatorias, pero no sera visible
+	 * 
+	 * Function thats modificates the atribute "solucion", generating the couple of numbers
+	 * in aleatories positions, but it will not visible
 	 */
 	public static void generaSolucion() {
 
-		// Creamos un objeto de tipo Random
+		// Creates a objets with the class random
 		Random rand = new Random();
 
 		// Numero que ocupará un lugar en la tabla, inicializado en 1
+		//Number thats will ocupated the place on the board, inicializate in 1
 		int numParaRellenar = 1;
 
 		// Posición correspondiente a la fila generada aleatoriamente
-		int posFila;
+		//Corresponding position to the row inicializated aleatory
+		int fila;
 		// Posición correspondiente a la columna generada aleatoriamente
-		int posColumna;
+		//Corresponding position to the column inicializated aleatory
+		int columna;
 
 		// Valor auxiliar para hacer los intercambios
+		//value auxiliar to do the exchanges
 		int aux;
 
-		// Rellenamos la tabla solución
-		// Recorremos cada fila de la tabla solucion
+		// we fill the board solucion
+		//We go throught each row to the board solucion
 		for (int i = 0; i < solucion.length; i++) {
-			// Recorremos cada columna de la tabla solucion
+			// We go thought each column to the board solucion
 			for (int j = 0; j < solucion[i].length; j++) {
 
-				// Si el numero para rellenar supera el límite máximo
+				//If the number to fill beats the maximun limit
 				if (numParaRellenar > Math.pow(tamTablero, 2) / 2) {
-					// Se le asigna el 1
+					//assings 1
 					numParaRellenar = 1;
 				}
 
 				// Asignamos el número a la posición correspondiente
+				//We assigned the number to the correspondent position
 				solucion[i][j] = numParaRellenar;
-				// Incrementamos el número a rellenar
+				// We increase the number to fill
 				numParaRellenar++;
 			}
 		}
@@ -122,24 +106,24 @@ public class Memory {
 			// Recorremos cada columna de la tabla solucion
 			for (int j = 0; j < solucion[i].length; j++) {
 				// Asignamos a posFila un número aleatorio entre 0 y la longitud de la fila
-				posFila = rand.nextInt(0, solucion.length);
+				fila = rand.nextInt(0, solucion.length);
 				// Asignamos a posColumna un número aleatorio entre 0 y la longitud de la
 				// columna
-				posColumna = rand.nextInt(0, solucion[i].length);
+				columna = rand.nextInt(0, solucion[i].length);
 
 				// Asignamos aux como una copia del elemento de la tabla en el que nos
 				// encontramos
 				aux = solucion[i][j];
 				// Intercambiamos los valores de la posición en la que nos encontramos y la
 				// posición generada aleatoriamente
-				solucion[i][j] = solucion[posFila][posColumna];
-				solucion[posFila][posColumna] = aux;
+				solucion[i][j] = solucion[fila][columna];
+				solucion[fila][columna] = aux;
 
 			}
 		}
 
 	}
-
+	//Hasta aca traduce juan (abajo)
 	/**
 	 * Función que muestra el tablero de juego
 	 */
